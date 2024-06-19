@@ -5,6 +5,21 @@
 </head>
 <body>
 <h1>Welcome to Index PAGE!</h1>
+<p>This is the home page.</p>
+
+<!-- If authenticated user is admin -->
+<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+    <p>You are logged in as <span th:text="${#authentication.name}"></span> (Admin).</p>
+    <a th:href="@{/admin}">Go to Admin Panel</a>
+</div>
+
+<!-- If authenticated user is user -->
+<div th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+    <p>You are logged in as <span th:text="${#authentication.name}"></span> (User).</p>
+    <a th:href="@{/user}">Go to User Dashboard</a>
+</div>
+
+<a th:href="@{/logout}">Logout</a>
 
 
 </body>
