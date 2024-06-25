@@ -14,7 +14,7 @@ import java.util.Set;
 @Component
 public class SuccessUserHandler implements AuthenticationSuccessHandler {
 
-    @Override
+
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,
                                         Authentication authentication) throws IOException, ServletException {
@@ -24,6 +24,11 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
         } else {
             httpServletResponse.sendRedirect("/");
         }
+    }
+
+    @Override
+    public void onAuthenticationSuccess(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response, Authentication authentication) throws IOException, javax.servlet.ServletException {
+
     }
 }
 
