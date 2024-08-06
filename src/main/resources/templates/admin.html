@@ -7,8 +7,22 @@
 <body>
 <h1>Welcome, Admin!</h1>
 <p>This is your admin dashboard.</p>
-
-<!-- Пример ссылки на выход -->
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.username}"></td>
+        <td>
+            <a th:href="@{/admin/edit/{id}(id=${user.id})}">Edit</a>
+            <a th:href="@{/admin/delete/{id}(id=${user.id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+<a th:href="@{/admin/new}">Add new user</a>
 <form th:action="@{/logout}" method="post">
     <button type="submit">Logout</button>
 </form>

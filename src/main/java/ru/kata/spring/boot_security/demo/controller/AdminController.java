@@ -22,6 +22,7 @@ public class AdminController {
 
     @Autowired
     public AdminController(UserService userService) {
+
         this.userService = userService;
     }
 
