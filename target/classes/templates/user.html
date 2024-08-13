@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>User Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
 </head>
 <body>
-<h1>Welcome, User!</h1>
-<p>This is your user dashboard.</p>
-<p th:text="'Username: ' + ${user.username}"></p>
-<p th:text="'Roles: ' + ${user.roles}"></p>
-<form th:action="@{/logout}" method="post">
-    <button type="submit">Logout</button>
-</form>
+<h1>User Page</h1>
+<p>Welcome, <span th:text="${#httpServletRequest.remoteUser}">User</span>!</p>
+<p>Your roles: <span th:each="role : ${#authentication.authorities}" th:text="${role}"></span></p>
+<a href="/logout">Logout</a>
 </body>
 </html>
