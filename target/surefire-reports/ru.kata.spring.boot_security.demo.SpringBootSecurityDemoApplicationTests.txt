@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Test set: ru.kata.spring.boot_security.demo.SpringBootSecurityDemoApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 13.268 s <<< FAILURE! - in ru.kata.spring.boot_security.demo.SpringBootSecurityDemoApplicationTests
+contextLoads  Time elapsed: 0.074 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataInitializer': Invocation of init method failed; nested exception is org.springframework.dao.InvalidDataAccessResourceUsageException: could not extract ResultSet; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet
+Caused by: org.springframework.dao.InvalidDataAccessResourceUsageException: could not extract ResultSet; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet
+Caused by: org.hibernate.exception.SQLGrammarException: could not extract ResultSet
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'user0_.password' in 'field list'
+
