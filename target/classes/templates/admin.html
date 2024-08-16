@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Page</title>
+    <title>Admin Page</title>
 </head>
 <body>
-<h1>Welcome, <span th:text="${#authentication.name}">User</span></h1>
-<p>Here are your details:</p>
-<!-- You can display user details here -->
+<h1>Admin Dashboard</h1>
+<p><a href="/admin/new">Create New User</a></p>
+<p>List of Users:</p>
+<!-- You can list users here -->
 <p><a href="/logout">Logout</a></p>
 </body>
 </html>

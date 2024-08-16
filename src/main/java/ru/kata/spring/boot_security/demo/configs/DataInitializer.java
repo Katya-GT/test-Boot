@@ -17,13 +17,13 @@ public class DataInitializer {
 
     private final UserService userService;
     private final RoleService roleService;
-    private final PasswordEncoder passwordEncoder;
+
 
     @Autowired
-    public DataInitializer(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public DataInitializer(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
+
     }
 
     @PostConstruct
@@ -43,15 +43,13 @@ public class DataInitializer {
 
         User admin = userService.findByUsername("admin");
         if (admin == null) {
-            admin = new User("admin", passwordEncoder.encode("admin"));
-            admin.setRoles(Set.of(roleAdmin, roleUser));
+            admin = new User("admin", "admin", Set.of(roleAdmin, roleUser));
             userService.saveUser(admin);
         }
 
         User user = userService.findByUsername("user");
         if (user == null) {
-            user = new User("user", passwordEncoder.encode("user"));
-            user.setRoles(Set.of(roleUser));
+            user = new User("user", "user",Set.of(roleUser));
             userService.saveUser(user);
         }
     }

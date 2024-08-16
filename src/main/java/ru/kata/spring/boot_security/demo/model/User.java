@@ -1,21 +1,21 @@
 package ru.kata.spring.boot_security.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
 import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -25,33 +25,32 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = false, nullable = true)
     private String username;
 
     @Column(nullable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
+    @JoinTable(
+            name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private Set<Role> roles;
 
-
+    // Default constructor
     public User() {
     }
 
+    // Constructor with parameters
     public User(String username, String password, Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.roles = roles;
     }
 
-    public User(String admin, String admin1) {
-    }
-
-
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -78,8 +77,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
@@ -88,22 +86,33 @@ public class User implements UserDetails {
     }
 
     @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Convert Set<Role> to Set<GrantedAuthority>
+        return roles.stream()
+                .map(role -> (GrantedAuthority) role)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return true;  // Set to true for testing
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return true;  // Set to true for testing
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return true;  // Set to true for testing
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return true;  // Set to true for testing
     }
 }
+
+
+

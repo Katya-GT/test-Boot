@@ -6,9 +6,9 @@
     <title>User Page</title>
 </head>
 <body>
-<h1>User Page</h1>
-<p>Welcome, <span th:text="${#httpServletRequest.remoteUser}">User</span>!</p>
-<p>Your roles: <span th:each="role : ${#authentication.authorities}" th:text="${role}"></span></p>
-<a href="/logout">Logout</a>
+<h1>Welcome, <span th:text="${#authentication.name}">User</span></h1>
+<p>Here are your details:</p>
+<!-- You can display user details here -->
+<p><a href="/logout">Logout</a></p>
 </body>
 </html>
