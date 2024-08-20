@@ -39,18 +39,17 @@ public class User implements UserDetails {
     )
     private Set<Role> roles;
 
-    // Default constructor
     public User() {
     }
 
-    // Constructor with parameters
+
     public User(String username, String password, Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.roles = roles;
     }
 
-    // Getters and Setters
+
     public Long getId() {
         return id;
     }
@@ -87,7 +86,6 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Convert Set<Role> to Set<GrantedAuthority>
         return roles.stream()
                 .map(role -> (GrantedAuthority) role)
                 .collect(Collectors.toSet());
@@ -95,22 +93,22 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;  // Set to true for testing
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;  // Set to true for testing
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;  // Set to true for testing
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return true;  // Set to true for testing
+        return true;
     }
 }
 

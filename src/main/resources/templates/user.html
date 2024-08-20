@@ -7,8 +7,13 @@
 </head>
 <body>
 <h1>Welcome, <span th:text="${#authentication.name}">User</span></h1>
+
 <p>Here are your details:</p>
-<!-- You can display user details here -->
+<ul>
+    <li>Username: <span th:text="${user.username}"></span></li>
+    <li>Roles: <span th:text="${user.roles}"></span></li>
+</ul>
+
 <p><a href="/logout">Logout</a></p>
 </body>
 </html>
