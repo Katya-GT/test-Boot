@@ -1,4 +1,5 @@
 package ru.kata.spring.boot_security.demo.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,6 @@ import java.util.Set;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
     private final UserService userService;
     private final RoleService roleService;
 
@@ -29,14 +29,12 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-
     @GetMapping
     public String adminPage(Model model) {
         model.addAttribute("users", userService.findAll());
         model.addAttribute("roles", roleService.findAll());
         return "admin";
     }
-
 
     @GetMapping("/new")
     public String newUserForm(Model model) {
@@ -45,20 +43,18 @@ public class AdminController {
         return "new";
     }
 
-
     @PostMapping("/new")
-    public String saveUser(@ModelAttribute("user") User user, @RequestParam List<Long> roles) {
-        Set<Role> roleSet = Set.copyOf(roleService.findAllById(roles));
-        user.setRoles(roleSet);
+    public String saveUser(@ModelAttribute("user") User user) {
         userService.saveUser(user);
         return "redirect:/admin";
     }
 
-
     @GetMapping("/edit/{id}")
     public String editUserForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.findById(id));
-        model.addAttribute("roles", roleService.findAll());
+        User user = userService.findById(id);
+        Set<Role> roles = (Set<Role>) roleService.findAll();
+        model.addAttribute("user", user);
+        model.addAttribute("roles", roles);
         return "edit";
     }
 
@@ -71,10 +67,10 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteById(id);
         return "redirect:/admin";
     }
-}
+
+    }

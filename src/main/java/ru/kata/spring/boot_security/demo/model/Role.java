@@ -28,8 +28,8 @@ public class Role implements GrantedAuthority {
     private Set<User> users;
 
     public Role() {
-    }
 
+    }
     public Role(String name) {
         this.name = name;
     }

@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New User</title>
 </head>
 <body>
 <h1>Create New User</h1>
-
-<form action="/admin/new" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br><br>
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br><br>
-
-    <label for="roles">Roles:</label>
-    <select id="roles" name="roles" multiple>
-        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
-    </select><br><br>
-
-    <button type="submit">Save</button>
+<form th:action="@{/admin/new}" th:object="${user}" method="post">
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" th:field="*{username}" />
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" th:field="*{password}" />
+    </div>
+    <div>
+        <label>Roles:</label>
+        <div th:each="role : ${roles}">
+            <input type="checkbox" th:id="'role_' + ${role.id}" th:name="'roles'" th:value="${role.id}" th:field="*{roles}" />
+            <label th:for="'role_' + ${role.id}" th:text="${role.name}">Role</label>
+        </div>
+    </div>
+    <button type="submit">Create</button>
 </form>
-
-<p><a href="/admin">Back to Admin Page</a></p>
+<a href="/admin">Back to Admin Page</a>
 </body>
 </html>

@@ -35,7 +35,14 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="798dff95-1b8d-44ca-979e-d5855b9f9188">
-      <console name="Connection" type="STANDARD" schema="mysql" session="Main" />
+      <console name="Connection" type="STANDARD" schema="myappdb" session="Main"><![CDATA[SELECT*FROM users;
+SELECT * FROM roles;
+SELECT username, COUNT(*) AS count FROM users GROUP BY username HAVING COUNT(*) > 1;
+DELETE u1 FROM users u1 JOIN users u2 ON u1.username = u2.username WHERE u1.id > u2.id;
+SELECT ur.* FROM user_roles ur JOIN users u ON ur.user_id = u.id WHERE u.username = 'exampleUser';
+SELECT *FROM users;
+SELECT * FROM user_roles;
+SELECT * FROM roles;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -46,6 +53,14 @@
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="798dff95-1b8d-44ca-979e-d5855b9f9188" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="798dff95-1b8d-44ca-979e-d5855b9f9188" dataset="myappdb.users" active-filter-id="660b6387-4259-4f42-b6eb-cd3a03e9803f">
+      <filter id="660b6387-4259-4f42-b6eb-cd3a03e9803f" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="798dff95-1b8d-44ca-979e-d5855b9f9188" dataset="myappdb.roles" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
@@ -82,7 +97,7 @@
           <url-type value="DATABASE" />
           <host value="localhost" />
           <port value="3306" />
-          <database value="mysql" />
+          <database value="myappdb" />
           <tns-folder value="" />
           <tns-profile value="" />
           <type value="USER_PASSWORD" />
