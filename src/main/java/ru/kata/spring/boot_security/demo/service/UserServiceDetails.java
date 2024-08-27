@@ -10,6 +10,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
+
 import java.util.Set;
 
 @Service
@@ -27,12 +28,12 @@ public class UserServiceDetails implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-        Set<Role> roleSet = roleRepository.findByUsers(user);
-        user.setRoles(roleSet);
         if (user == null) {
 
             throw new UsernameNotFoundException("User not found");
         }
+        Set<Role> roleSet = roleRepository.findByUsers(user);
+        user.setRoles(roleSet);
         return user;
     }
 }

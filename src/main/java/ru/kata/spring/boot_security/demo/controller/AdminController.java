@@ -52,17 +52,14 @@ public class AdminController {
     @GetMapping("/edit/{id}")
     public String editUserForm(@PathVariable("id") Long id, Model model) {
         User user = userService.findById(id);
-        Set<Role> roles = (Set<Role>) roleService.findAll();
         model.addAttribute("user", user);
-        model.addAttribute("roles", roles);
+        model.addAttribute("roles", user.getRoles());
         return "edit";
     }
 
 
     @PostMapping("/edit")
-    public String updateUser(@ModelAttribute("user") User user, @RequestParam List<Long> roles) {
-        Set<Role> roleSet = Set.copyOf(roleService.findAllById(roles));
-        user.setRoles(roleSet);
+    public String updateUser(@ModelAttribute("user") User user) {
         userService.saveUser(user);
         return "redirect:/admin";
     }

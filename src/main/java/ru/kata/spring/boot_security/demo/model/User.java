@@ -1,6 +1,6 @@
 package ru.kata.spring.boot_security.demo.model;
 
-import org.springframework.data.jpa.repository.EntityGraph;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -27,7 +27,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = false, nullable = true)
+    @Column(unique = true, nullable = false)
     private String username;
 
     @Column(nullable = false)
@@ -40,9 +40,6 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
-
-    public User(long l, String testuser, String password, List<Role> roles) {
-    }
 
 
     public User(String username, String password, Set<Role> roles) {

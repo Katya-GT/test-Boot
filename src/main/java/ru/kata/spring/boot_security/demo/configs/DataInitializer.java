@@ -49,7 +49,7 @@ public class DataInitializer {
 
         User user = userService.findByUsername("user");
         if (user == null) {
-            user = new User("user", "user",Set.of(roleUser));
+            user = new User("user", "user", Set.of(roleUser));
             userService.saveUser(user);
         }
     }
