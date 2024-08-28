@@ -35,7 +35,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="798dff95-1b8d-44ca-979e-d5855b9f9188">
-      <console name="Connection" type="STANDARD" schema="myappdb" session="Main"><![CDATA[SELECT * FROM users;]]></console>
+      <console name="Connection" type="STANDARD" schema="myappdb" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -130,7 +130,7 @@
           <session-management value="true" />
           <ddl-file-binding value="true" />
           <database-logging value="true" />
-          <connect-automatically value="false" />
+          <connect-automatically value="true" />
           <restore-workspace value="true" />
           <restore-workspace-deep value="false" />
           <environment-type value="default" />
