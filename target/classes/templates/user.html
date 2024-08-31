@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>User Details</h2>
+    <div>
+        <p><strong>ID:</strong> <span th:text="${user.id}"></span></p>
+        <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+        <p><strong>Roles:</strong>
+            <span th:each="role : ${user.roles}" th:text="${role.name}"></span>
+        </p>
+    </div>
+    <a href="/admin" class="btn btn-secondary">Back</a>
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
