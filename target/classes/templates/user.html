@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,14 +9,29 @@
 <body>
 <div class="container mt-4">
     <h2>User Details</h2>
-    <div>
-        <p><strong>ID:</strong> <span th:text="${user.id}"></span></p>
-        <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
-        <p><strong>Roles:</strong>
-            <span th:each="role : ${user.roles}" th:text="${role.name}"></span>
-        </p>
-    </div>
-    <a href="/admin" class="btn btn-secondary">Back</a>
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <td th:text="${user.id}"></td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td th:text="${user.email}"></td>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <td th:text="${user.username}"></td>
+        </tr>
+        <tr>
+            <th>Roles</th>
+            <td>
+                <ul>
+                    <li th:each="role : ${user.roles}" th:text="${role.name}"></li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <a href="/admin" class="btn btn-secondary">Back to Admin Panel</a>
 </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 </body>

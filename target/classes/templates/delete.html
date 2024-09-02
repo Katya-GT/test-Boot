@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
     <h2>Delete User</h2>
     <form action="/admin/delete" method="post">
         <input type="hidden" name="id" th:value="${user.id}">
-        <p>Are you sure you want to delete <strong th:text="${user.username}"></strong>?</p>
+        <p>Are you sure you want to delete user <strong th:text="${user.username}"></strong> with email <strong th:text="${user.email}"></strong>?</p>
         <button type="submit" class="btn btn-danger">Delete</button>
         <a href="/admin" class="btn btn-secondary">Cancel</a>
     </form>

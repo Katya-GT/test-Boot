@@ -1,7 +1,7 @@
 package ru.kata.spring.boot_security.demo.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -19,10 +19,13 @@ public class DataInitializer {
     private final RoleService roleService;
 
 
+
+
     @Autowired
     public DataInitializer(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
+
 
     }
 
@@ -41,15 +44,15 @@ public class DataInitializer {
         }
 
 
-        User admin = userService.findByUsername("admin");
+        User admin = userService.findByEmail("admin@example.com");
         if (admin == null) {
-            admin = new User("admin", "admin", Set.of(roleAdmin, roleUser));
+            admin = new User("admin", "admin", "admin@example.com", Set.of(roleAdmin, roleUser));
             userService.saveUser(admin);
         }
 
-        User user = userService.findByUsername("user");
+        User user = userService.findByEmail("user@example.com");
         if (user == null) {
-            user = new User("user", "user", Set.of(roleUser));
+            user = new User("user",  "user", "user@example.com", Set.of(roleUser));
             userService.saveUser(user);
         }
     }
