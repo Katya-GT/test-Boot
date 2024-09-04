@@ -9,22 +9,38 @@
 <body>
 <div class="container mt-4">
     <h2>Edit User</h2>
-    <form th:action="/admin/edit" method="post">
+    <form th:action="@{/admin/edit}" method="post">
+        <!-- Hidden field for ID -->
         <input type="hidden" name="id" th:value="${user.id}">
+
+        <!-- Email Field -->
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" class="form-control" th:value="${user.email}" required>
         </div>
+
+        <!-- Username Field -->
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" class="form-control" th:value="${user.username}" required>
         </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control">
+            <small class="form-text text-muted">Leave blank if you do not want to change the password.</small>
+        </div>
+
+        <!-- Roles Field -->
         <div class="form-group">
             <label for="roles">Roles</label>
             <select id="roles" name="roles" class="form-control" multiple>
-                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}" th:selected="${user.roles.contains(role)}"></option>
+                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"
+                        th:selected="${user.roles.contains(role)}"></option>
             </select>
         </div>
+
         <button type="submit" class="btn btn-primary">Save</button>
         <a href="/admin" class="btn btn-secondary">Cancel</a>
     </form>

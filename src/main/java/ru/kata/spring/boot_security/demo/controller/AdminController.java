@@ -1,5 +1,8 @@
 package ru.kata.spring.boot_security.demo.controller;
+
+import com.sun.xml.bind.v2.runtime.output.Encoded;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -13,6 +16,8 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.beans.Encoder;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -24,6 +29,7 @@ public class AdminController {
     public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
+
     }
 
     @GetMapping
@@ -56,6 +62,13 @@ public class AdminController {
 
     @PostMapping("/edit")
     public String updateUser(@ModelAttribute("user") User user) {
+        User existingUser = userService.findById(user.getId());
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            user.setPassword(existingUser.getPassword());
+
+        } else {
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        }
         userService.saveUser(user);
         return "redirect:/admin";
     }

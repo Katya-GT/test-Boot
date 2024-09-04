@@ -29,7 +29,11 @@ public class UserServiceDetails implements UserDetailsService {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
 
-        return user;
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getEmail())
+                .password(user.getPassword())
+                .authorities(user.getAuthorities())
+                .build();
     }
 }
 
