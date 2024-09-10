@@ -62,23 +62,12 @@ public class AdminController {
 
     @PostMapping("/edit")
     public String updateUser(@ModelAttribute("user") User user) {
-        User existingUser = userService.findById(user.getId());
-        if (user.getPassword() == null || user.getPassword().isEmpty()) {
-            user.setPassword(existingUser.getPassword());
-
-        } else {
-            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        }
         userService.saveUser(user);
         return "redirect:/admin";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteUserPage(@PathVariable("id") Long id, Model model) {
-        User user = userService.findById(id);
-        model.addAttribute("user", user);
-        return "delete";
-    }
+
+
 
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("id") Long id) {

@@ -1,37 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New User</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>Create New User</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container mt-4">
-    <h2>New User</h2>
-    <form action="/admin/new" method="post">
+<div class="container mt-5">
+    <h1>Create New User</h1>
+    <form th:action="@{/admin/new}" th:object="${user}" method="post">
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" class="form-control" required>
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" th:field="*{firstName}" class="form-control" />
         </div>
         <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" class="form-control" required>
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" th:field="*{lastName}" class="form-control" />
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" class="form-control" required>
+            <label for="age">Age:</label>
+            <input type="number" id="age" th:field="*{age}" class="form-control" />
         </div>
         <div class="form-group">
-            <label for="roles">Roles</label>
-            <select id="roles" name="roles" class="form-control" multiple>
-                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
-            </select>
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" th:field="*{password}" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Roles:</label>
+            <div th:each="role : ${roles}">
+                <input type="checkbox" th:id="'role_' + ${role.id}" th:name="'roles'" th:value="${role.id}" th:field="*{roles}" />
+                <label th:for="'role_' + ${role.id}" th:text="${role.name}"></label>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Create</button>
-        <a href="/admin" class="btn btn-secondary">Cancel</a>
     </form>
+    <a href="/admin" class="btn btn-secondary mt-3">Back to Admin Page</a>
 </div>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

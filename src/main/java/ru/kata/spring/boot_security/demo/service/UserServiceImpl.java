@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+
     }
 
     @Override
@@ -34,12 +35,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Override
-    @Transactional
-    public User findByUsername(String username) {
-        User user = userRepository.findByUsername(username);
-        return userRepository.findByUsername(username);
-    }
+
 
 
     @Override
@@ -49,9 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
-        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
     }

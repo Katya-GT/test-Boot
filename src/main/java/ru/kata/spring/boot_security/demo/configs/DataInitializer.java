@@ -35,25 +35,29 @@ public class DataInitializer {
         if (roleAdmin == null) {
             roleAdmin = new Role("ROLE_ADMIN");
             roleService.saveRole(roleAdmin);
+
         }
 
         Role roleUser = roleService.findByName("ROLE_USER");
         if (roleUser == null) {
             roleUser = new Role("ROLE_USER");
             roleService.saveRole(roleUser);
+
         }
 
 
         User admin = userService.findByEmail("admin@example.com");
         if (admin == null) {
-            admin = new User("admin", "admin", "admin@example.com", Set.of(roleAdmin, roleUser));
+            admin = new User("admin@example.com", "admin", "Admin", "Admin", 40, Set.of(roleAdmin));
             userService.saveUser(admin);
+
         }
 
         User user = userService.findByEmail("user@example.com");
         if (user == null) {
-            user = new User("user",  "user", "user@example.com", Set.of(roleUser));
+            user = new User("user@example.com", "user", "User", "User", 40, Set.of(roleUser));
             userService.saveUser(user);
+
         }
     }
 }
