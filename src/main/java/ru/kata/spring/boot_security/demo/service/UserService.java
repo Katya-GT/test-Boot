@@ -1,37 +1,22 @@
 package ru.kata.spring.boot_security.demo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
-public class UserService {
+public interface UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    List<User> findAll();
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    User findByEmail(String email);
+    User findById(Long id);
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+    void saveUser(User user);
 
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
-    }
+    void deleteById(Long id);
 
-    public void saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-    }
 
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
-    }
+
+
+
 }
