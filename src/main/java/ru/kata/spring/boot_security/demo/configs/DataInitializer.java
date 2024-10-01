@@ -10,6 +10,7 @@ import ru.kata.spring.boot_security.demo.service.RoleService;
 
 
 import javax.annotation.PostConstruct;
+import java.util.Optional;
 import java.util.Set;
 
 @Component
@@ -17,8 +18,6 @@ public class DataInitializer {
 
     private final UserService userService;
     private final RoleService roleService;
-
-
 
 
     @Autowired
@@ -44,20 +43,22 @@ public class DataInitializer {
             roleService.saveRole(roleUser);
 
         }
-
-
-        User admin = userService.findByEmail("admin@example.com");
-        if (admin == null) {
-            admin = new User("admin@example.com", "admin", "Admin", "Admin", 40, Set.of(roleAdmin));
-            userService.saveUser(admin);
-
+        Optional<User> admin = userService.findByEmail("admin@example.com");
+        if (admin.isEmpty()) {
+            User newAdmin = new User("admin@example.com", "admin", "Admin", "Admin", 40, Set.of(roleAdmin));
+            userService.saveUser(newAdmin);
         }
 
-        User user = userService.findByEmail("user@example.com");
-        if (user == null) {
-            user = new User("user@example.com", "user", "User", "User", 40, Set.of(roleUser));
-            userService.saveUser(user);
 
+        Optional<User> user = userService.findByEmail("user@example.com");
+        if (user.isEmpty()) {
+            User newUser = new User("user@example.com", "user", "User", "User", 40, Set.of(roleUser));
+            userService.saveUser(newUser);
         }
     }
 }
+
+
+
+
+
