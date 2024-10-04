@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 public class RoleServiceImpl implements RoleService {
 
@@ -39,13 +41,20 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role findByName(String roleName) {
-       return roleRepository.findByName(roleName);
-        }
+        return roleRepository.findByName(roleName);
+    }
 
     @Override
     public Set<Role> findAllById(List<Long> ids) {
         return new HashSet<>(roleRepository.findAllById(ids));
-
     }
+
+
+    @Override
+    public void deleteRoleById(Long id) {
+        roleRepository.deleteById(id);
+    }
+
 }
+
 

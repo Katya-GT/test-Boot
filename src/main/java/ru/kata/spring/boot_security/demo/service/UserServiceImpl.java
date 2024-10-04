@@ -34,9 +34,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
-
-
     @Override
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
@@ -46,6 +43,7 @@ public class UserServiceImpl implements UserService {
     public void saveUser(Optional<User> user) {
 
     }
+
 
     @Override
     public void saveUser(User user) {
@@ -58,5 +56,7 @@ public class UserServiceImpl implements UserService {
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
-
 }
+
+
+

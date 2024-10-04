@@ -11,5 +11,7 @@ public interface RoleService {
     Role saveRole(Role role);
     Role findByName(String name);
     Set<Role> findAllById(List<Long> ids);
+    void deleteRoleById(Long id);
+
 
 }
