@@ -34,19 +34,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf().disable() // Отключаем CSRF для простоты работы с API
                 .authorizeRequests()
+                // Открываем доступ к API только для аутентифицированных пользователей
+                .antMatchers("/api/**").permitAll()
                 .antMatchers("/",  "/error").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/users/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
+                // Для API используем Basic Auth
+                .httpBasic()
+                .and()
+                // Для остальных запросов (не API) используем форму логина
                 .formLogin().successHandler(successUserHandler)
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll();
-
     }
 
     @Bean
