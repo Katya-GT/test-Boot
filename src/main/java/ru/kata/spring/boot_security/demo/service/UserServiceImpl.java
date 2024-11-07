@@ -47,7 +47,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        } else {
+            User existingUser = findById(user.getId());
+            if (existingUser != null) {
+                user.setPassword(existingUser.getPassword());
+            }
+        }
         userRepository.save(user);
 
     }
@@ -57,6 +64,7 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 }
+
 
 
 

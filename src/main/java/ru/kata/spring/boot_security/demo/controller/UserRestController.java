@@ -1,8 +1,7 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +14,6 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -23,6 +21,7 @@ public class UserRestController {
 
     private final UserService userService;
 
+    @Autowired
     public UserRestController(UserService userService) {
         this.userService = userService;
     }
@@ -31,49 +30,51 @@ public class UserRestController {
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.findAll();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        return ResponseEntity.ok(users);
     }
 
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User user = userService.findById(id);
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (user != null) {
+            return ResponseEntity.ok(user);
         }
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return ResponseEntity.notFound().build();
     }
 
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         userService.saveUser(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        return ResponseEntity.ok(user);
     }
 
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
-        User user = userService.findById(id);
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        User existingUser = userService.findById(id);
+        if (existingUser != null) {
+
+            if (updatedUser.getPassword() == null || updatedUser.getPassword().isEmpty()) {
+                updatedUser.setPassword(existingUser.getPassword());
+            }
+            updatedUser.setId(id);
+            userService.saveUser(updatedUser);
+            return ResponseEntity.ok(updatedUser);
         }
-
-
-        user.setFirstName(updatedUser.getFirstName());
-        user.setLastName(updatedUser.getLastName());
-        user.setAge(updatedUser.getAge());
-        user.setEmail(updatedUser.getEmail());
-        user.setPassword(updatedUser.getPassword());
-
-        userService.saveUser(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return ResponseEntity.notFound().build();
     }
+
 
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        User user = userService.findById(id);
+        if (user != null) {
+            userService.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

@@ -1,5 +1,4 @@
 ru\kata\spring\boot_security\demo\configs\DataInitializer.class
-ru\kata\spring\boot_security\demo\controller\UserController.class
 ru\kata\spring\boot_security\demo\model\Role.class
 ru\kata\spring\boot_security\demo\service\UserService.class
 ru\kata\spring\boot_security\demo\service\RoleServiceImpl.class
@@ -15,4 +14,3 @@ ru\kata\spring\boot_security\demo\SpringBootSecurityDemoApplication.class
 ru\kata\spring\boot_security\demo\controller\UserRestController.class
 ru\kata\spring\boot_security\demo\controller\RoleRestController.class
 ru\kata\spring\boot_security\demo\repositories\UserRepository.class
-ru\kata\spring\boot_security\demo\controller\AdminController.class
